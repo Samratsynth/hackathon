@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BharatVirasat Dashboard - Heritage Explorer</title>
+  <link rel="stylesheet" href="css/styles-dashboard.css">
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    🏛️ BHARAT<br><span style="font-size: 0.9rem;">VIRASAT</span>
+  </div>
+
+  <nav class="sidebar-nav">
+    <button class="nav-item active">
+      <span>🏠</span> Explore
+    </button>
+    <button class="nav-item">
+      <span>🎯</span> Recommended
+    </button>
+    <button class="nav-item">
+      <span>❤️</span> Saved Sites
+    </button>
+    <button class="nav-item">
+      <span>🗺️</span> Map View
+    </button>
+    <button class="nav-item">
+      <span>📸</span> Gallery
+    </button>
+    <button class="nav-item">
+      <span>💬</span> AI Chat
+    </button>
+    <button class="nav-item">
+      <span>⚙️</span> Settings
+    </button>
+  </nav>
+
+  <div class="sidebar-footer">
+    <p style="font-size: 0.85rem; color: rgba(255, 255, 255, 0.5); margin-bottom: 1rem;">
+      🇮🇳 Smart India Hackathon<br>Heritage Explorer v2.0
+    </p>
+  </div>
+</aside>
+
+<!-- MAIN CONTENT -->
+<div class="main-content">
+  
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <div class="search-container">
+      <input type="text" placeholder="🔍 Search heritage sites...">
+    </div>
+    <div class="top-actions">
+      <button class="icon-btn" title="Notifications">🔔</button>
+      <button class="icon-btn" title="Dark Mode">🌙</button>
+      <button class="icon-btn" title="Profile">👤</button>
+    </div>
+  </div>
+
+  <!-- QUICK STATS -->
+  <div class="quick-stats">
+    <div class="stat-mini">
+      <div class="stat-mini-value">42+</div>
+      <div class="stat-mini-label">UNESCO Sites</div>
+    </div>
+    <div class="stat-mini">
+      <div class="stat-mini-value">6</div>
+      <div class="stat-mini-label">Cultural Zones</div>
+    </div>
+    <div class="stat-mini">
+      <div class="stat-mini-value">5000+</div>
+      <div class="stat-mini-label">Years History</div>
+    </div>
+    <div class="stat-mini">
+      <div class="stat-mini-value">100%</div>
+      <div class="stat-mini-label">AI Guided</div>
+    </div>
+  </div>
+
+  <!-- FEATURED SITES SECTION -->
+  <div class="section">
+    <div class="section-header">
+      <h2 class="section-title">✨ Featured Heritage Sites</h2>
+      <span class="view-all">View All →</span>
+    </div>
+    <div class="featured-grid" id="featured-sites">
+      <!-- Cards populated by JS -->
+    </div>
+  </div>
+
+  <!-- CATEGORIES SECTION -->
+  <div class="section">
+    <div class="section-header">
+      <h2 class="section-title">🏛️ Browse by Category</h2>
+      <span class="view-all">All Categories →</span>
+    </div>
+    <div class="category-list">
+      <div class="category-item">
+        <div class="category-icon">🏰</div>
+        <div class="category-name">Monuments & Palaces</div>
+        <div class="category-count">8 sites</div>
+      </div>
+      <div class="category-item">
+        <div class="category-icon">🛕</div>
+        <div class="category-name">Temples & Sacred</div>
+        <div class="category-count">12 sites</div>
+      </div>
+      <div class="category-item">
+        <div class="category-icon">⛰️</div>
+        <div class="category-name">Caves & Rock-Cut</div>
+        <div class="category-count">7 sites</div>
+      </div>
+      <div class="category-item">
+        <div class="category-icon">🛡️</div>
+        <div class="category-name">Forts & Citadels</div>
+        <div class="category-count">6 sites</div>
+      </div>
+      <div class="category-item">
+        <div class="category-icon">📜</div>
+        <div class="category-name">Universities</div>
+        <div class="category-count">3 sites</div>
+      </div>
+      <div class="category-item">
+        <div class="category-icon">🌿</div>
+        <div class="category-name">Natural Heritage</div>
+        <div class="category-count">6 sites</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RECOMMENDED FOR YOU -->
+  <div class="section">
+    <div class="section-header">
+      <h2 class="section-title">🎯 Recommended For You</h2>
+      <span class="view-all">See More →</span>
+    </div>
+    <div class="featured-grid" id="recommended-sites">
+      <!-- Cards populated by JS -->
+    </div>
+  </div>
+
+  <!-- ALL SITES TABLE -->
+  <div class="section">
+    <div class="section-header">
+      <h2 class="section-title">📋 All Heritage Sites Directory</h2>
+      <span class="view-all">Export as PDF →</span>
+    </div>
+    <div class="table-container">
+      <table id="sites-table">
+        <thead>
+          <tr>
+            <th>Site Name</th>
+            <th>Location</th>
+            <th>Category</th>
+            <th>Year</th>
+            <th>Rating</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="table-body">
+          <!-- Populated by JS -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<!-- SCRIPTS -->
+<script src="js/data.js"></script>
+<script>
+// Initialize Dashboard
+class DashboardView {
+  constructor() {
+    this.data = window.heritageData || [];
+    this.init();
+  }
+
+  init() {
+    this.renderFeaturedSites();
+    this.renderRecommendedSites();
+    this.renderTable();
+    this.setupEventListeners();
+  }
+
+  renderFeaturedSites() {
+    const featured = this.data.slice(0, 6);
+    const container = document.getElementById('featured-sites');
+    
+    container.innerHTML = featured.map((site, idx) => `
+      <div class="featured-card" style="animation-delay: ${idx * 0.1}s">
+        <div class="featured-card-image">
+          <img src="${site.image || 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 300 200%22%3E%3Crect fill=%22%23667eea%22 width=%22300%22 height=%22200%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-size=%2220%22 fill=%22white%22 text-anchor=%22middle%22 dy=%22.3em%22%3E${site.name}%3C/text%3E%3C/svg%3E'}" alt="${site.name}">
+          <div class="featured-card-overlay">
+            <h3 style="font-size: 1.3rem; font-weight: 700; margin: 0;">${site.name}</h3>
+            <p style="font-size: 0.9rem; margin: 0;">📍 ${site.state}</p>
+          </div>
+        </div>
+        <div class="featured-card-content">
+          <div class="featured-card-title">${site.name}</div>
+          <div class="featured-card-subtitle">${site.subtitle || site.state} • ${site.year || 'Historic'}</div>
+          <div class="featured-card-tags">
+            <span class="tag">🎯 Featured</span>
+            <span class="tag">⭐ ${(Math.random() * 2 + 3.5).toFixed(1)}</span>
+            <span class="tag">🕐 2-3h</span>
+          </div>
+          <div class="featured-card-buttons">
+            <button class="btn-learn">Learn More</button>
+            <button class="btn-save">❤️ Save</button>
+          </div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  renderRecommendedSites() {
+    const recommended = this.data.slice(6, 12);
+    const container = document.getElementById('recommended-sites');
+    
+    container.innerHTML = recommended.map((site, idx) => `
+      <div class="featured-card" style="animation-delay: ${idx * 0.1}s">
+        <div class="featured-card-image">
+          <img src="${site.image || 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 300 200%22%3E%3Crect fill=%22%23764ba2%22 width=%22300%22 height=%22200%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-size=%2220%22 fill=%22white%22 text-anchor=%22middle%22 dy=%22.3em%22%3E${site.name}%3C/text%3E%3C/svg%3E'}" alt="${site.name}">
+          <div class="featured-card-overlay">
+            <h3 style="font-size: 1.3rem; font-weight: 700; margin: 0;">${site.name}</h3>
+            <p style="font-size: 0.9rem; margin: 0;">📍 ${site.state}</p>
+          </div>
+        </div>
+        <div class="featured-card-content">
+          <div class="featured-card-title">${site.name}</div>
+          <div class="featured-card-subtitle">${site.subtitle || site.state} • ${site.year || 'Historic'}</div>
+          <div class="featured-card-tags">
+            <span class="tag">🔥 Popular</span>
+            <span class="tag">⭐ ${(Math.random() * 2 + 3.5).toFixed(1)}</span>
+            <span class="tag">🕐 2-3h</span>
+          </div>
+          <div class="featured-card-buttons">
+            <button class="btn-learn">Learn More</button>
+            <button class="btn-save">❤️ Save</button>
+          </div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  renderTable() {
+    const tbody = document.getElementById('table-body');
+    tbody.innerHTML = this.data.map(site => `
+      <tr>
+        <td><strong>${site.name}</strong></td>
+        <td>${site.state}</td>
+        <td>${site.category || 'Monument'}</td>
+        <td>${site.year || 'N/A'}</td>
+        <td>⭐ ${(Math.random() * 2 + 3.5).toFixed(1)}</td>
+        <td><a href="#" style="color: var(--primary); text-decoration: none; font-weight: 600;">View →</a></td>
+      </tr>
+    `).join('');
+  }
+
+  setupEventListeners() {
+    // Search functionality
+    document.querySelector('input[placeholder*="Search"]').addEventListener('input', (e) => {
+      const query = e.target.value.toLowerCase();
+      const rows = document.querySelectorAll('#table-body tr');
+      rows.forEach(row => {
+        const text = row.textContent.toLowerCase();
+        row.style.display = text.includes(query) ? '' : 'none';
+      });
+    });
+
+    // Navigation
+    document.querySelectorAll('.nav-item').forEach(item => {
+      item.addEventListener('click', (e) => {
+        document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+        e.target.closest('.nav-item').classList.add('active');
+      });
+    });
+  }
+}
+
+// Initialize on load
+document.addEventListener('DOMContentLoaded', () => {
+  new DashboardView();
+});
+</script>
+
+</body>
+</html>

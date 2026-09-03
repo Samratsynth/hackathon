@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BharatVirasat | Indian Heritage & Culture Portal</title>
+  <meta name="description" content="Discover India's iconic UNESCO Heritage Sites and cultural wonders with concise summaries, high-resolution imagery, Google Translate multi-language support, and Gemini Heritage AI Chatbot.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏛️</text></svg>">
+  <link rel="stylesheet" href="css/styles.css">
+  
+  <!-- Google Translate Element Script (Fixed) -->
+  <script type="text/javascript">
+    // Redirect to welcome page on first visit (if not coming from welcome)
+    function checkFirstVisit() {
+      if (!sessionStorage.getItem('bharat_visited')) {
+        // Check if we're being redirected from welcome page
+        const isFromWelcome = sessionStorage.getItem('from_welcome');
+        if (!isFromWelcome && window.location.pathname.includes('index.html')) {
+          // Mark as visited to prevent redirect loop
+          sessionStorage.setItem('from_welcome', 'true');
+          // Don't redirect - just mark as visited
+        }
+      }
+      sessionStorage.setItem('bharat_visited', 'true');
+    }
+    
+    checkFirstVisit();
+  </script>
+  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</head>
+<body>
+
+  <!-- ==========================================================================
+       TOP NAVIGATION & TRANSLATOR
+       ========================================================================== -->
+  <header class="top-nav-bar">
+    <div class="container nav-container">
+      <a href="#" class="brand-logo">
+        <span class="brand-emblem">🏛️</span>
+        <div class="brand-title-wrap">
+          <span class="brand-title font-royal"><span class="gold-gradient-text">BHARAT</span> VIRASAT</span>
+          <span class="brand-subtitle">Indian Heritage & Culture Portal</span>
+        </div>
+      </a>
+
+      <!-- Google Translate & Quick Indian Language Switcher -->
+      <div class="translate-wrapper">
+        <span class="translate-label">🌐 Translate:</span>
+        <div class="quick-lang-pills">
+          <button class="lang-btn active" data-lang="en" onclick="triggerLanguageChange('en')">English</button>
+          <button class="lang-btn active" data-lang="hi" onclick="triggerLanguageChange('hi')">हिन्दी</button>
+          <button class="lang-btn active" data-lang="ta" onclick="triggerLanguageChange('ta')">தமிழ்</button>
+          <button class="lang-btn active" data-lang="te" onclick="triggerLanguageChange('te')">తెలుగు</button>
+          <button class="lang-btn active" data-lang="te" onclick="triggerLanguageChange('te')">తెలుగు</button>
+          <button class="lang-btn active" data-lang="te" onclick="triggerLanguageChange('te')">తెలుగు</button>
+          <button class="lang-btn active" data-lang="bn" onclick="triggerLanguageChange('bn')">বাংলা</button>
+          <button class="lang-btn active" data-lang="mr" onclick="triggerLanguageChange('mr')">मराठी</button>
+          <button class="lang-btn active" data-lang="gu" onclick="triggerLanguageChange('gu')">ગુજરાતી</button>
+          <button class="lang-btn active" data-lang="es" onclick="triggerLanguageChange('es')">Español</button>
+          <button class="lang-btn active" data-lang="fr" onclick="triggerLanguageChange('fr')">Français</button>
+        </div>
+        <div id="google_translate_element"></div>
+      </div>
+
+      <div class="nav-actions">
+        <button class="welcome-nav-btn" onclick="window.location.href='welcome.html'" title="Return to Welcome Page">
+          🌟 Welcome
+        </button>
+        <button class="gemini-nav-trigger" onclick="openGeminiDrawer()">
+          <span>✨</span> Ask Gemini AI
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+       HERO SECTION
+       ========================================================================== -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="hero-pill">
+        <span>🇮🇳</span> Smart India Hackathon • Heritage & Culture Portal
+      </div>
+      <h1 class="hero-title font-royal">
+        Explore India's <span class="gold-gradient-text">Timeless Heritage</span> & Sacred Wonders
+      </h1>
+      <p class="hero-lead">
+        Bite-sized summaries of India's world-renowned UNESCO monuments, ancient rock-cut marvels, and living spiritual traditions—powered by multilingual translation and intelligent Gemini AI guidance.
+      </p>
+
+      <!-- Live Search Bar -->
+      <div class="search-container">
+        <div class="search-input-wrap">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="main-search-input" class="search-input" placeholder="Search by site name, state, dynasty, or architecture (e.g. Taj Mahal, Hampi, Chola)..." autocomplete="off">
+        </div>
+      </div>
+
+      <!-- Quick Statistics -->
+      <div class="hero-stats-grid">
+        <div class="stat-card">
+          <div class="stat-num">42+</div>
+          <div class="stat-label">UNESCO World Heritage Sites</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">5000+</div>
+          <div class="stat-label">Years of Living Civilization</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">6</div>
+          <div class="stat-label">Cultural Geographic Zones</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">100%</div>
+          <div class="stat-label">Multilingual & AI-Guided</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       EXPLORER CONTROLS & FILTERS
+       ========================================================================== -->
+  <section class="explorer-controls-section">
+    <div class="container">
+      <div class="filter-group-header">
+        <span class="filter-heading">🗺️ Explore by Cultural Zone</span>
+      </div>
+      <div id="zone-filter-bar" class="zone-filter-bar"></div>
+
+      <div class="filter-group-header" style="margin-top: 1rem;">
+        <span class="filter-heading">🏛️ Filter by Category</span>
+      </div>
+      <div id="category-filter-bar" class="category-filter-bar"></div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       HERITAGE SITES SHOWCASE
+       ========================================================================== -->
+  <main class="container">
+    <div class="sites-section-header">
+      <div>
+        <h2 class="section-title font-royal">Curated <span class="gold-gradient-text">Heritage Marvels</span></h2>
+        <p style="color: var(--text-secondary); margin-top: 0.25rem;">Concise summaries, architectural highlights, and audio guides</p>
+      </div>
+      <div id="sites-count-badge" class="sites-count-badge">Showing Heritage Sites</div>
+    </div>
+
+    <!-- Dynamic Heritage Sites Grid -->
+    <div id="heritage-grid" class="heritage-grid"></div>
+  </main>
+
+  <!-- ==========================================================================
+       HERITAGE QUIZ & SCHOLAR CHALLENGE
+       ========================================================================== -->
+  <section class="quiz-section">
+    <div class="container">
+      <div style="text-align: center; margin-bottom: 2rem;">
+        <div class="hero-pill"><span>🎯</span> Interactive Heritage Challenge</div>
+        <h2 class="font-royal" style="font-size: 2.2rem;">Test Your <span class="gold-gradient-text">Cultural Knowledge</span></h2>
+        <p style="color: var(--text-secondary); max-width: 600px; margin: 0.5rem auto 0;">Answer quick trivia questions on India's architectural wonders and unlock your Heritage Scholar badge!</p>
+      </div>
+
+      <div id="quiz-widget-container" class="quiz-container-box"></div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       FLOATING AUDIO NARRATION BAR
+       ========================================================================== -->
+  <div id="floating-audio-bar" class="floating-audio-bar">
+    <div class="audio-controls-wrap">
+      <button id="audio-bar-play-btn" class="audio-btn" onclick="toggleAudioPlayback()" title="Play / Pause">▶️</button>
+    </div>
+    <div class="audio-info-wrap">
+      <span id="audio-bar-title" class="audio-bar-title">Audio Narration</span>
+      <span class="audio-sub">Official Text-to-Speech Cultural Audio Guide</span>
+    </div>
+    <div class="waveform-equalizer">
+      <div class="wave-bar"></div>
+      <div class="wave-bar"></div>
+      <div class="wave-bar"></div>
+      <div class="wave-bar"></div>
+    </div>
+    <button class="audio-close-btn" onclick="closeAudioBar()" title="Close Audio Player">✕</button>
+  </div>
+
+  <!-- ==========================================================================
+       SITE DETAILS & 360° MODAL
+       ========================================================================== -->
+  <div id="modal-backdrop" class="modal-backdrop" onclick="closeSiteModal()"></div>
+  <div id="site-modal" class="site-modal" role="dialog" aria-modal="true">
+    <button class="modal-close-btn" onclick="closeSiteModal()" aria-label="Close modal">✕</button>
+    
+    <div class="modal-header-content">
+      <span id="modal-unesco-badge" class="modal-unesco-badge">UNESCO World Heritage Site</span>
+      <h2 id="modal-site-title" class="modal-site-title font-royal">Site Name</h2>
+      <p id="modal-site-subtitle" class="modal-site-subtitle">Hindi Name • Location</p>
+    </div>
+
+    <!-- Gallery & 360 View -->
+    <div id="modal-gallery-container" class="modal-gallery-container"></div>
+
+    <div class="modal-content-body">
+      <!-- Concise Summary Box -->
+      <div class="modal-box">
+        <h3 class="modal-box-title">📖 Concise Overview</h3>
+        <p id="modal-short-summary" style="color: #cbd5e1; line-height: 1.6; font-size: 1rem; margin-bottom: 0.75rem;"></p>
+        <p id="modal-deep-narration" style="color: var(--text-secondary); line-height: 1.6; font-size: 0.95rem;"></p>
+      </div>
+
+      <!-- Key Marvels / Facts -->
+      <div class="modal-box">
+        <h3 class="modal-box-title">✨ Key Architectural & Historical Marvels</h3>
+        <ul id="modal-facts-list" class="modal-facts-list"></ul>
+      </div>
+
+      <!-- Specifications Grid -->
+      <div class="modal-box">
+        <h3 class="modal-box-title">🏛️ Historical & Travel Details</h3>
+        <div class="specs-grid">
+          <div class="spec-item">
+            <span class="spec-label">Built By</span>
+            <span id="spec-built-by" class="spec-val"></span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label">Era / Year</span>
+            <span id="spec-year" class="spec-val"></span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label">Architectural Style</span>
+            <span id="spec-style" class="spec-val"></span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label">Visiting Hours</span>
+            <span id="spec-hours" class="spec-val"></span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label">Ticket Cost</span>
+            <span id="spec-ticket" class="spec-val"></span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label">Best Season</span>
+            <span id="spec-best-time" class="spec-val"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA Buttons -->
+      <div class="modal-cta-group">
+        <button id="modal-ask-gemini-btn" class="gemini-deep-ask-btn">
+          <span>✨</span> Ask Gemini Cultural Sage About This Site
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       GEMINI AI CHATBOT DRAWER & FLOATING BUTTON
+       ========================================================================== -->
+  <button class="gemini-float-btn" onclick="openGeminiDrawer()" title="Chat with Gemini Cultural Sage">
+    <div class="gemini-float-inner">
+      <span class="gemini-sparkle">✨</span>
+      <span>Gemini Cultural Sage</span>
+    </div>
+  </button>
+
+  <div id="gemini-drawer-backdrop" class="modal-backdrop" onclick="closeGeminiDrawer()"></div>
+  <div id="gemini-chat-drawer" class="gemini-chat-drawer">
+    <div class="gemini-drawer-header">
+      <div class="gemini-header-info">
+        <span style="font-size: 1.5rem;">✨</span>
+        <div>
+          <h3 class="gemini-header-title">Gemini Cultural Sage</h3>
+          <span class="gemini-model-pill">Gemini 2.0 Flash Knowledge Engine</span>
+        </div>
+      </div>
+      <button class="gemini-close-btn" onclick="closeGeminiDrawer()" title="Close Chat">✕</button>
+    </div>
+
+    <!-- Quick Prompt Chips -->
+    <div class="gemini-chips-bar">
+      <button class="prompt-chip" onclick="geminiBot.askDirectly('Tell me the secrets of the Konark Sun Temple sundial')">☀️ Konark Sundial</button>
+      <button class="prompt-chip" onclick="geminiBot.askDirectly('Why does Brihadisvara Temple cast no shadow and how was the 80-ton dome raised?')">👑 Brihadisvara Dome</button>
+      <button class="prompt-chip" onclick="geminiBot.askDirectly('Explain the musical pillars and stone chariot of Hampi')">🛕 Hampi Musical Pillars</button>
+      <button class="prompt-chip" onclick="geminiBot.askDirectly('Plan a 5-day Golden Triangle heritage itinerary')">🗺️ Plan 5-Day Tour</button>
+    </div>
+
+    <!-- Chat Messages Container -->
+    <div id="gemini-messages" class="gemini-messages">
+      <div class="chat-message gemini-msg">
+        <div class="msg-avatar">✨</div>
+        <div class="msg-content">
+          <strong>Namaste! 🙏 I am Gemini Cultural Sage.</strong><br>
+          I can guide you through the architectural secrets, untold legends, dynasties, and travel tips for all heritage sites across India.<br><br>
+          <em>Ask me anything about monuments, construction secrets, or plan your next cultural journey!</em>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chat Input Bar -->
+    <div class="gemini-input-bar">
+      <input type="text" id="gemini-chat-input" class="gemini-input-field" placeholder="Ask about any monument, history, or travel tip..." autocomplete="off">
+      <button id="gemini-mic-btn" class="gemini-mic-btn" onclick="geminiBot.toggleVoiceInput()" title="Voice Input">🎤</button>
+      <button class="gemini-send-btn" onclick="geminiBot.handleSendMessage()" title="Send Message">➔</button>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       FOOTER
+       ========================================================================== -->
+  <footer class="main-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="brand-logo" style="margin-bottom: 0.5rem;">
+            <span class="brand-emblem">🏛️</span>
+            <span class="brand-title font-royal"><span class="gold-gradient-text">BHARAT</span> VIRASAT</span>
+          </div>
+          <p>Preserving and celebrating the sacred architecture, monuments, and cultural tapestry of India for the digital generation.</p>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Cultural Zones</h4>
+          <ul class="footer-links">
+            <li><a href="#" onclick="setZoneFilter('North')">North India (Agra, Delhi, Varanasi)</a></li>
+            <li><a href="#" onclick="setZoneFilter('South')">South India (Hampi, Thanjavur, Madurai)</a></li>
+            <li><a href="#" onclick="setZoneFilter('East')">East India (Konark, Nalanda)</a></li>
+            <li><a href="#" onclick="setZoneFilter('West')">West India (Ajanta, Rani ki Vav)</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Heritage Categories</h4>
+          <ul class="footer-links">
+            <li><a href="#" onclick="setCategoryFilter('Monuments')">Monuments & Palaces</a></li>
+            <li><a href="#" onclick="setCategoryFilter('Temples & Sacred')">Temples & Sacred Sites</a></li>
+            <li><a href="#" onclick="setCategoryFilter('Caves & Rock-Cut')">Rock-Cut Caves & Monoliths</a></li>
+            <li><a href="#" onclick="setCategoryFilter('Ancient Universities')">Ancient Universities</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Hackathon & Sources</h4>
+          <ul class="footer-links">
+            <li><a href="https://whc.unesco.org/en/statesparties/in" target="_blank" rel="noopener">UNESCO World Heritage Centre</a></li>
+            <li><a href="https://asi.nic.in" target="_blank" rel="noopener">Archaeological Survey of India (ASI)</a></li>
+            <li><a href="https://sih.gov.in" target="_blank" rel="noopener">Smart India Hackathon (SIH)</a></li>
+            <li><a href="https://ai.google.dev" target="_blank" rel="noopener">Google Gemini AI Engine</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ==========================================================================
+           ABOUT CREATORS & TEAM CODE:BLACK (SIH)
+           ========================================================================== -->
+      <div class="creators-showcase-section">
+        <div class="creators-header">
+          <div class="creators-badge">
+            <span class="sih-badge-pill">🇮🇳 Smart India Hackathon (SIH)</span>
+            <span class="team-badge-pill">Team CODE:BLACK</span>
+          </div>
+          <h3 class="creators-title font-royal">About The <span class="gold-gradient-text">Creators</span></h3>
+          <p class="creators-subtitle">The innovative team behind BharatVirasat — empowering digital heritage preservation</p>
+        </div>
+
+        <div class="creators-grid">
+          <!-- Script Leader -->
+          <div class="creator-card lead-card">
+            <div class="creator-role-badge lead-badge">👑 Script Leader</div>
+            <div class="creator-avatar">💻</div>
+            <h4 class="creator-name">Farhan Tamboli</h4>
+            <p class="creator-desc">Core architecture, script engineering, and interactive portal logic</p>
+          </div>
+
+          <!-- Prompt Typer -->
+          <div class="creator-card">
+            <div class="creator-role-badge prompt-badge">✍️ Prompt Typer</div>
+            <div class="creator-avatar">⚡</div>
+            <h4 class="creator-name">Samrat Jha</h4>
+            <p class="creator-desc">AI prompt crafting, knowledge curation & cultural synthesis</p>
+          </div>
+
+          <!-- UI Looker & Confirmer -->
+          <div class="creator-card">
+            <div class="creator-role-badge ui-badge">🎨 UI Looker & Confirmer</div>
+            <div class="creator-avatar">👁️</div>
+            <h4 class="creator-name">Simran Jha</h4>
+            <p class="creator-desc">Visual review, UX aesthetics, quality assurance & design confirmation</p>
+          </div>
+
+          <!-- Other Team Members -->
+          <div class="creator-card team-card">
+            <div class="creator-role-badge members-badge">🤝 Team Members</div>
+            <div class="creator-avatar">🚀</div>
+            <h4 class="creator-name">Research & Development</h4>
+            <div class="member-names-list">
+              <span class="member-chip">Harsh Satav</span>
+              <span class="member-chip">Ilisha Jain</span>
+              <span class="member-chip">Dhairya Khumbhar</span>
+            </div>
+            <p class="creator-desc">Data curation, heritage research & feature validation</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2024–2026 BharatVirasat Portal • Crafted with ❤️ by <strong>Team CODE:BLACK</strong> for <strong>Smart India Hackathon (SIH)</strong> • All Cultural Information Curated from ASI & UNESCO</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating SIH & Team CODE:BLACK Watermark Badge -->
+  <div class="sih-floating-watermark" title="Smart India Hackathon • Team CODE:BLACK">
+    <div class="watermark-flag">🇮🇳</div>
+    <div class="watermark-info">
+      <span class="watermark-sih">SMART INDIA HACKATHON</span>
+      <span class="watermark-team">TEAM <span class="team-glow">CODE:BLACK</span></span>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/gemini-bot.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

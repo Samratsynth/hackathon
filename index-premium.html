@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BharatVirasat Premium - AI Heritage Explorer</title>
+  <link rel="stylesheet" href="css/styles-premium.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text x=%2250%22 y=%2250%22 font-size=%2260%22 text-anchor=%22middle%22 dy=%22.3em%22>🏛️</text></svg>">
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-left">
+    <div class="logo">
+      <span>🏛️</span>
+      <div class="logo-text">
+        <div class="brand">BHARAT VIRASAT</div>
+        <div class="tagline">PREMIUM</div>
+      </div>
+    </div>
+  </div>
+  <div class="header-controls">
+    <button id="ai-chat-btn">💬 AI Chat</button>
+    <button id="saved-btn">❤️ Saved</button>
+    <button class="dark-toggle">🌙</button>
+  </div>
+</header>
+
+<!-- HERO SECTION -->
+<section class="hero">
+  <div class="hero-content">
+    <p style="font-size: 0.9rem; letter-spacing: 2px; margin-bottom: 1rem;">🏆 PREMIUM HERITAGE EXPERIENCE</p>
+    <h1>
+      Discover India's <span class="highlight">Living Legends</span><br>
+      Personalized For You
+    </h1>
+    <p>Get AI-powered recommendations based on your interests, time, and exploration style. Unlock the soul of India's 42+ UNESCO heritage sites.</p>
+    <div class="hero-buttons">
+      <button class="btn btn-primary">✨ Start Personalized Journey</button>
+      <button class="btn btn-secondary">🎬 Watch Demo</button>
+    </div>
+  </div>
+</section>
+
+<!-- PERSONALIZATION ENGINE -->
+<div style="max-width: 1200px; margin: 0 auto; padding: 0 2rem;">
+  <section class="personalization">
+    <div class="section-title">
+      <h2>🎯 Tailor Your Experience</h2>
+      <p>Tell us what you love, and we'll find the perfect heritage sites for your visit</p>
+    </div>
+
+    <div class="filters-container">
+      <div class="filter-group">
+        <label>⏱️ How Much Time Do You Have?</label>
+        <select id="exploration-time">
+          <option value="">Select Duration</option>
+          <option value="1">1 Hour Quick Visit</option>
+          <option value="3">3 Hours - Half Day</option>
+          <option value="6">6 Hours - Full Day</option>
+          <option value="12">12+ Hours - Deep Dive</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label>📍 Which Region Interests You?</label>
+        <select>
+          <option>All India</option>
+          <option>North India</option>
+          <option>South India</option>
+          <option>East India</option>
+          <option>West India</option>
+          <option>Central India</option>
+          <option>Northeast India</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label>🎭 What Fascinates You Most?</label>
+        <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+          <label style="display: flex; align-items: center; gap: 0.5rem; font-weight: 400; cursor: pointer;">
+            <input type="checkbox" class="interest-filter" value="ancient">
+            Ancient History
+          </label>
+          <label style="display: flex; align-items: center; gap: 0.5rem; font-weight: 400; cursor: pointer;">
+            <input type="checkbox" class="interest-filter" value="architecture">
+            Architecture & Art
+          </label>
+          <label style="display: flex; align-items: center; gap: 0.5rem; font-weight: 400; cursor: pointer;">
+            <input type="checkbox" class="interest-filter" value="spiritual">
+            Spiritual Sites
+          </label>
+          <label style="display: flex; align-items: center; gap: 0.5rem; font-weight: 400; cursor: pointer;">
+            <input type="checkbox" class="interest-filter" value="royalty">
+            Royal Palaces
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- STATS -->
+    <div class="stats"></div>
+  </section>
+
+  <!-- SEARCH & FILTERS -->
+  <div style="margin: 3rem 0;">
+    <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 2rem; flex-wrap: wrap;">
+      <input type="text" placeholder="🔍 Search by site name, state, dynasty..." style="flex: 1; min-width: 200px; padding: 0.8rem; border: 2px solid var(--primary); border-radius: 8px; font-size: 1rem;">
+    </div>
+
+    <div style="margin-bottom: 2rem;">
+      <h3 style="margin-bottom: 1rem; font-size: 1.2rem;">🏛️ Filter by Category</h3>
+      <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+        <button class="btn btn-primary category-filter active" style="background: var(--primary); color: var(--text-dark);">🏛️ All Heritage Sites</button>
+        <button class="btn btn-secondary category-filter">🏰 Monuments & Palaces</button>
+        <button class="btn btn-secondary category-filter">🛕 Temples & Sacred</button>
+        <button class="btn btn-secondary category-filter">⛰️ Caves & Rock-Cut</button>
+        <button class="btn btn-secondary category-filter">🛡️ Forts & Citadels</button>
+      </div>
+    </div>
+
+    <div>
+      <h3 style="margin-bottom: 1rem; font-size: 1.2rem;">🗺️ Explore by Region</h3>
+      <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+        <button class="btn btn-primary zone-filter active" style="background: var(--primary); color: var(--text-dark);">All India</button>
+        <button class="btn btn-secondary zone-filter">North India</button>
+        <button class="btn btn-secondary zone-filter">South India</button>
+        <button class="btn btn-secondary zone-filter">East India</button>
+        <button class="btn btn-secondary zone-filter">West India</button>
+        <button class="btn btn-secondary zone-filter">Central India</button>
+        <button class="btn btn-secondary zone-filter">Northeast India</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CARDS GRID -->
+  <main>
+    <section style="margin-bottom: 4rem;">
+      <div style="text-align: center; margin-bottom: 2rem;">
+        <h2 style="font-size: 2rem; margin-bottom: 0.5rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Heritage Marvels Curated For You</h2>
+        <p style="color: #666;">Discover authentic stories, expert recommendations, and exclusive experiences</p>
+      </div>
+      <div class="sites-container">
+        <!-- Cards will be populated by JavaScript -->
+      </div>
+    </section>
+  </main>
+
+  <!-- CTA SECTION -->
+  <section style="background: linear-gradient(135deg, var(--primary) 0%, #e74c3c 100%); color: var(--text-dark); padding: 3rem 2rem; border-radius: 15px; text-align: center; margin: 4rem 0;">
+    <h2 style="font-size: 2rem; margin-bottom: 1rem;">Ready for Your Heritage Adventure?</h2>
+    <p style="margin-bottom: 2rem; font-size: 1.1rem;">Get personalized recommendations, book experiences, and connect with fellow heritage enthusiasts.</p>
+    <button class="btn" style="background: white; color: var(--text-dark); padding: 1rem 2rem; font-size: 1.1rem;">Start Your Journey Now →</button>
+  </section>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>🏛️ BharatVirasat Premium - Celebrating Indian Heritage Through Technology 🇮🇳</p>
+  <p>Powered by Google Gemini AI | Multilingual Support | Smart Recommendations</p>
+  <p style="font-size: 0.9rem; opacity: 0.7;">Made with ❤️ during Smart India Hackathon</p>
+</footer>
+
+<!-- DETAIL MODAL -->
+<div class="modal" id="detail-modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>Heritage Site Details</h2>
+      <button class="modal-close">&times;</button>
+    </div>
+    <p>Loading...</p>
+  </div>
+</div>
+
+<!-- SCRIPTS -->
+<script src="js/data.js"></script>
+<script src="js/app-premium.js"></script>
+
+<script>
+// Initialize AI Chat (placeholder)
+document.getElementById('ai-chat-btn').addEventListener('click', () => {
+  alert('💬 Gemini AI Chat coming soon!\n\nAsk questions about any heritage site and get instant expert insights.');
+});
+
+document.getElementById('saved-btn').addEventListener('click', () => {
+  alert('❤️ Your saved sites will appear here!\n\nBookmark your favorite heritage sites for quick access.');
+});
+
+// Close modal on outside click
+document.getElementById('detail-modal').addEventListener('click', (e) => {
+  if (e.target === e.currentTarget) {
+    e.currentTarget.classList.remove('active');
+  }
+});
+</script>
+
+</body>
+</html>
